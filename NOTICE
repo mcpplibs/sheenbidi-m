@@ -1,0 +1,22 @@
+sheenbidi-m: C++ module wrapper
+Copyright (c) 2026 mcpp-community contributors
+
+The wrapper contributions are licensed under the Apache License, Version 2.0.
+Upstream code, copied interfaces and dependencies retain their original
+licenses and copyright notices. SheenBidi is distributed under the Apache
+License, Version 2.0:
+
+  Copyright (C) 2014-2026 Muhammad Tayyab Akram
+
+Its original README and license are retained in upstream/sheenbidi/. Its
+character tables (Source/Data) are generated from the Unicode Character
+Database 17.0.0, (c) Unicode, Inc., distributed under the Unicode License v3,
+retained in upstream/unicode/license.txt. The library itself is built by
+compat.sheenbidi from the same release; this wrapper links it, it does not
+modify it.
+
+The conformance runners in examples/sheenbidi read Unicode's BidiTest.txt and
+BidiCharacterTest.txt (17.0.0) from the pinned release; the files are not
+redistributed here.
+
+Provenance and checksums are recorded in upstream/documents.json.

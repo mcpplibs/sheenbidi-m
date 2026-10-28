@@ -1,0 +1,41 @@
+{
+  "upstream": "https://github.com/Tehreer/SheenBidi/archive/refs/tags/v3.0.0.tar.gz",
+  "upstream_version": "3.0.0",
+  "upstream_sha256": "86c56014034739ba39a24c23eb00323b0bf6f737354f665786015fca842af786",
+  "unicode_version": "17.0.0",
+  "pruning": "Nothing of SheenBidi is vendored: the library is compat.sheenbidi 3.0.0, built from the same tag archive (Source/SheenBidi.c, its unity build, with the committed Unicode 17.0.0 tables of Source/Data). Its README and license (Apache-2.0) are retained here, with the Unicode License v3 of the Unicode Character Database its tables are generated from.",
+  "documents": [
+    {
+      "path": "upstream/sheenbidi/README.md",
+      "source": "https://github.com/Tehreer/SheenBidi/blob/v3.0.0/README.md",
+      "sha256": "34376a693954902b6b587d29d008d07e8ac29e4e553e8319d2f1d5ab7e3ae1c8"
+    },
+    {
+      "path": "upstream/sheenbidi/LICENSE",
+      "source": "https://github.com/Tehreer/SheenBidi/blob/v3.0.0/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "upstream/unicode/license.txt",
+      "source": "https://www.unicode.org/license.txt",
+      "sha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96"
+    }
+  ],
+  "conformance": [
+    {
+      "path": "Tools/Unicode/BidiTest.txt",
+      "source": "https://www.unicode.org/Public/17.0.0/ucd/BidiTest.txt",
+      "sha256": "888bdfc8090652272d1f859cdb00ae659e2dc6c26740be61ef1d03998a687620"
+    },
+    {
+      "path": "Tools/Unicode/BidiCharacterTest.txt",
+      "source": "https://www.unicode.org/Public/17.0.0/ucd/BidiCharacterTest.txt",
+      "sha256": "a3e6e905ab5afbe318a96df5401d0372a04cd73ef139ab5e3cf0ae241c255488"
+    },
+    {
+      "path": "Tools/Unicode/BidiMirroring.txt",
+      "source": "https://www.unicode.org/Public/17.0.0/ucd/BidiMirroring.txt",
+      "sha256": "a2f16fb873ab4fcdf3221cb1a8a85a134ddd6ed03603181823ff5206af3741ce"
+    }
+  ]
+}

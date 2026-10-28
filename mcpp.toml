@@ -1,0 +1,47 @@
+# Module wrapper; upstream API preserved. Policy: mcpp-index/docs/mwrap.md.
+[package]
+namespace   = "mcpplibs.mwrap"
+name        = "sheenbidi"
+version     = "3.0.0"
+description = "SheenBidi 3.0.0 C++ modules for mcpp (import mcpplibs.mwrap.sheenbidi;): the Unicode Bidirectional Algorithm (UAX #9, Unicode 17.0.0) of SheenBidi.h over compat.sheenbidi, its macros and enumerators as constants and constexpr functions"
+license     = "Apache-2.0"
+authors     = ["mcpp-community"]
+repo        = "https://github.com/mcpplibs/sheenbidi-m"
+platforms   = ["linux", "macos", "windows"]
+
+[targets.sheenbidi]
+kind = "lib"
+
+[build]
+sources      = ["src/*.cppm"]
+# <mwrap/sheenbidi/macros.hpp>: the macros a C++ entity cannot be.
+include_dirs = ["include"]
+
+[dependencies]
+compat.sheenbidi = "3.0.0"
+
+[dev-dependencies]
+compat.gtest = "1.15.2"
+
+[package.metadata.mwrap]
+upstream-version = "3.0.0"
+
+[[runtime.deploy]]
+from = "LICENSE"
+to   = "licenses/sheenbidi"
+
+[[runtime.deploy]]
+from = "NOTICE"
+to   = "licenses/sheenbidi"
+
+[[runtime.deploy]]
+from = "upstream/sheenbidi/README.md"
+to   = "licenses/sheenbidi/upstream/sheenbidi"
+
+[[runtime.deploy]]
+from = "upstream/sheenbidi/LICENSE"
+to   = "licenses/sheenbidi/upstream/sheenbidi"
+
+[[runtime.deploy]]
+from = "upstream/unicode/license.txt"
+to   = "licenses/sheenbidi/upstream/unicode"
