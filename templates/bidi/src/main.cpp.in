@@ -1,0 +1,90 @@
+// {{project.name}} — bidirectional text through import mcpplibs.mwrap.sheenbidi:
+// each UTF-8 line in logical (storage) order is laid out as a renderer does
+// it — a paragraph and its embedding levels (UAX #9), then the line's runs in
+// visual order with mirrored brackets — and printed with its levels. A
+// terminal without bidi support shows the visual line as it should be read.
+//
+//   {{project.name}}                  the samples below
+//   {{project.name}} "text" ...       each argument
+//   {{project.name}} -                lines from stdin
+import std;
+import mcpplibs.mwrap.sheenbidi;
+
+using namespace mcpplibs::mwrap::sheenbidi::macros;  // SBStringEncodingUTF8, SBLevelDefaultLTR …
+
+namespace {
+
+constexpr std::string_view samples[] = {
+    "The title is מזל טוב in Hebrew.",
+    "הספר (book) עולה 120 ש״ח.",
+    "مرحبا [world] 2026!",
+};
+
+void append_utf8(std::string& out, SBCodepoint c) {
+    if (c < 0x80) {
+        out += static_cast<char>(c);
+    } else if (c < 0x800) {
+        out += {static_cast<char>(0xC0 | (c >> 6)), static_cast<char>(0x80 | (c & 0x3F))};
+    } else if (c < 0x10000) {
+        out += {static_cast<char>(0xE0 | (c >> 12)), static_cast<char>(0x80 | ((c >> 6) & 0x3F)),
+                static_cast<char>(0x80 | (c & 0x3F))};
+    } else {
+        out += {static_cast<char>(0xF0 | (c >> 18)), static_cast<char>(0x80 | ((c >> 12) & 0x3F)),
+                static_cast<char>(0x80 | ((c >> 6) & 0x3F)), static_cast<char>(0x80 | (c & 0x3F))};
+    }
+}
+
+void show(std::string_view text) {
+    // SheenBidi reads the UTF-8 code units directly; offsets are in bytes.
+    const SBCodepointSequence seq{SBStringEncodingUTF8, text.data(), text.size()};
+    SBAlgorithmRef algorithm = SBAlgorithmCreate(&seq);
+    SBParagraphRef paragraph = SBAlgorithmCreateParagraph(algorithm, 0, text.size(), SBLevelDefaultLTR);
+    const SBUInteger length = SBParagraphGetLength(paragraph);  // up to the first paragraph separator
+    SBLineRef line = SBParagraphCreateLine(paragraph, 0, length);
+
+    // The runs come in visual order; an odd (right-to-left) one is read
+    // backwards, and a character with a mirror is drawn as it.
+    const auto* bytes = reinterpret_cast<const SBUInt8*>(text.data());
+    std::string visual;
+    const SBRun* runs = SBLineGetRunsPtr(line);
+    for (SBUInteger r = 0; r < SBLineGetRunCount(line); ++r) {
+        const SBRun& run = runs[r];
+        if (run.level & 1) {
+            for (SBUInteger i = run.offset + run.length; i > run.offset;) {
+                const SBCodepoint c = SBCodepointDecodePreviousFromUTF8(bytes, run.offset + run.length, &i);
+                const SBCodepoint mirror = SBCodepointGetMirror(c);
+                append_utf8(visual, mirror != 0 ? mirror : c);
+            }
+        } else {
+            visual += text.substr(run.offset, run.length);
+        }
+    }
+
+    std::string levels;  // one digit per character
+    const SBLevel* level = SBParagraphGetLevelsPtr(paragraph);
+    for (SBUInteger i = 0; i < length;) {
+        levels += static_cast<char>('0' + level[i]);
+        SBCodepointDecodeNextFromUTF8(bytes, length, &i);
+    }
+    std::println("logical  {}", text.substr(0, length));
+    std::println("visual   {}", visual);
+    std::println("levels   {} ({} paragraph; odd levels run right to left)\n", levels,
+                 SBParagraphGetBaseLevel(paragraph) & 1 ? "RTL" : "LTR");
+
+    SBLineRelease(line);
+    SBParagraphRelease(paragraph);
+    SBAlgorithmRelease(algorithm);
+}
+
+}  // namespace
+
+int main(int argc, char** argv) {
+    std::println("SheenBidi {} (Unicode 17.0.0) through import mcpplibs.mwrap.sheenbidi\n", SBVersionGetString());
+    if (argc > 1 && std::string_view(argv[1]) == "-") {
+        for (std::string line; std::getline(std::cin, line);) show(line);
+    } else if (argc > 1) {
+        for (int i = 1; i < argc; ++i) show(argv[i]);
+    } else {
+        for (auto sample : samples) show(sample);
+    }
+}

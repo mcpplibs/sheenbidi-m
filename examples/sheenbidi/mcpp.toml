@@ -1,0 +1,21 @@
+[package]
+name        = "sheenbidi"
+version     = "0.1.0"
+description = "A bidirectional text layout tool (logical to visual order, levels, runs, script runs) and Unicode's two conformance tests, written against import mcpplibs.mwrap.sheenbidi; the hosts tools/run_conformance.py runs them on"
+license     = "Apache-2.0"
+
+[targets.sheenbidi]
+kind = "bin"
+main = "src/main.cpp"
+
+# Unicode's BidiTest.txt and BidiCharacterTest.txt, every case.
+[targets.BidiTest]
+kind = "bin"
+main = "conformance/BidiTest.cpp"
+
+[targets.BidiCharacterTest]
+kind = "bin"
+main = "conformance/BidiCharacterTest.cpp"
+
+[dependencies]
+"mcpplibs.mwrap.sheenbidi" = { path = "../.." }
