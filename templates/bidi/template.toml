@@ -1,0 +1,4 @@
+[template]
+description  = "Bidirectional text with import mcpplibs.mwrap.sheenbidi: UTF-8 lines in logical order to visual order, with mirrored brackets and their embedding levels, as a renderer lays them out"
+default      = true
+post_message = "Run `mcpp run`, or `mcpp run -- \"your text\"` (or pipe lines in: `mcpp run -- -`)."
