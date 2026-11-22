@@ -30,7 +30,7 @@ SheenBidi 把按逻辑顺序存储的文本转换成显示所需的视觉顺序�
 ## 快速开始
 
 ```sh
-mcpp new bidi --template mcpplibs.mwrap.sheenbidi@3.0.0
+mcpp new bidi --template mcpplibs.mwrap.sheenbidi@3.0.0.1
 cd bidi
 mcpp run
 ```
@@ -40,7 +40,7 @@ mcpp run
 
 ```toml
 [dependencies]
-"mcpplibs.mwrap.sheenbidi" = "3.0.0"
+mcpplibs.mwrap.sheenbidi = "3.0.0.1"
 ```
 
 ```cpp

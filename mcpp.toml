@@ -2,7 +2,7 @@
 [package]
 namespace   = "mcpplibs.mwrap"
 name        = "sheenbidi"
-version     = "3.0.0"
+version     = "3.0.0.1"
 description = "SheenBidi 3.0.0 C++ modules for mcpp (import mcpplibs.mwrap.sheenbidi;): the Unicode Bidirectional Algorithm (UAX #9, Unicode 17.0.0) of SheenBidi.h over compat.sheenbidi, its macros and enumerators as constants and constexpr functions"
 license     = "Apache-2.0"
 authors     = ["mcpp-community"]
