@@ -18,4 +18,4 @@ kind = "bin"
 main = "conformance/BidiCharacterTest.cpp"
 
 [dependencies]
-"mcpplibs.mwrap.sheenbidi" = { path = "../.." }
+mcpplibs.mwrap.sheenbidi = { path = "../.." }

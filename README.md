@@ -32,7 +32,7 @@ programs written against the module.
 ## Getting started
 
 ```sh
-mcpp new bidi --template mcpplibs.mwrap.sheenbidi@3.0.0
+mcpp new bidi --template mcpplibs.mwrap.sheenbidi@3.0.0.1
 cd bidi
 mcpp run
 ```
@@ -43,7 +43,7 @@ mirrored brackets. Run `mcpp run -- "your text"` for your own lines.
 
 ```toml
 [dependencies]
-"mcpplibs.mwrap.sheenbidi" = "3.0.0"
+mcpplibs.mwrap.sheenbidi = "3.0.0.1"
 ```
 
 ```cpp
